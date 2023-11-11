@@ -1,6 +1,8 @@
 import React from 'react';
-import {SafeAreaView, Text, View} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+
 import SplashScreen from 'react-native-splash-screen';
+import {LoginStack} from './src/navigation/Stack';
 
 const App = () => {
   React.useEffect(() => {
@@ -8,11 +10,9 @@ const App = () => {
   }, []);
 
   return (
-    <SafeAreaView style={{flexGrow: 1}}>
-      <View style={{flexGrow: 1, padding: 10, backgroundColor: 'white'}}>
-        <Text style={{fontSize: 36, color: 'red'}}>Test</Text>
-      </View>
-    </SafeAreaView>
+    <NavigationContainer>
+      <LoginStack />
+    </NavigationContainer>
   );
 };
 
