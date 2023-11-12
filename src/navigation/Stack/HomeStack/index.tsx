@@ -1,10 +1,16 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {colors} from '../../../theme';
-import {HomeScreen} from '../../../screens';
+import {
+  HomeScreen,
+  SettingsScreen,
+  AddKeyCardHomeScreen,
+} from '../../../screens';
 
 export type HomeStackTypes = {
   home: undefined;
+  settings: undefined;
+  addCardHome: undefined;
 };
 
 const Stack = createStackNavigator<HomeStackTypes>();
@@ -19,6 +25,8 @@ export const HomeStack = () => {
         },
       }}>
       <Stack.Screen name="home" component={HomeScreen} />
+      <Stack.Screen name="settings" component={SettingsScreen} />
+      <Stack.Screen name="addCardHome" component={AddKeyCardHomeScreen} />
     </Stack.Navigator>
   );
 };

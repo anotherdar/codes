@@ -1,17 +1,58 @@
-type Color = 'backgroundColor' | 'color';
+import {
+  DimensionValue,
+  FlexStyle,
+  StyleSheet,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 
-// sizes for all the app
+/**
+ * Color options that the theme support
+ */
+type Color = 'backgroundColor' | 'color';
+/**
+ * Padding options that the theme support
+ */
+type Padding =
+  | 'padding'
+  | 'paddingHorizontal'
+  | 'paddingBottom'
+  | 'paddingTop'
+  | 'paddingVertical'
+  | 'paddingLeft'
+  | 'paddingRight';
+/**
+ * Sizes options that the theme support
+ */
+type Sizes =
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'normal'
+  | 'extra'
+  | 'default'
+  | 'xl'
+  | '1xl'
+  | '2xl';
+
+/**
+ * Sizes for the theme
+ */
 export const sizes = {
   xs: 4,
   sm: 8,
   md: 12,
   normal: 16,
+  extra: 18,
   default: 24,
   xl: 32,
   '1xl': 44,
   '2xl': 48,
 };
-// color theme
+
+/**
+ * Theme color
+ */
 export const colors = {
   yellow: {
     default: '#ffaa00',
@@ -45,13 +86,155 @@ export function addColor(color: string, type: Color = 'backgroundColor') {
 
 /**
  * Create Circle - small function to create a perfect circle
- * @param size
- * @returns
+ * @param number size
  */
 export function createCircle(size: number) {
   return {
     width: size,
     height: size,
     borderRadius: size / 2,
+  };
+}
+
+/**
+ * Small function to add padding to a component or element
+ * @param size one of {Sizes}
+ * @param type one of {Padding}
+ * @param size manual option to add padding
+ */
+export function addPadding(
+  elementSize: Sizes,
+  type: Padding = 'padding',
+  size?: number,
+) {
+  return {
+    [type]: size || sizes[elementSize],
+  };
+}
+
+/**
+ * Util to add border radius to an element
+ * @param size
+ */
+export function addBorderRadius(type: Sizes, size?: number) {
+  return {
+    borderRadius: size || sizes[type],
+  };
+}
+
+export function addWidth(width: DimensionValue) {
+  return {
+    width,
+  };
+}
+
+/**
+ * Styles for flex orientation
+ */
+export const orientation = StyleSheet.create({
+  row: {
+    flexDirection: 'row',
+  },
+  column: {
+    flexDirection: 'column',
+  },
+  spread: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  evenly: {
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+  },
+  allCenter: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  alignCenter: {
+    alignItems: 'center',
+  },
+  alignTop: {
+    alignItems: 'flex-start',
+  },
+  self: {
+    alignSelf: 'flex-start',
+  },
+  endRow: {
+    justifyContent: 'flex-end',
+  },
+  full: {
+    flex: 1,
+  },
+  disableGrow: {
+    flexGrow: 0,
+  },
+});
+
+/**
+ * Util to add a font size
+ * @param type one of {Sizes}
+ * @param size manual size
+ */
+export function fontSize(type: Sizes, size?: number) {
+  return {
+    fontSize: size || sizes[type],
+  };
+}
+
+/**
+ * utils to add font weight
+ * @param fontWeight
+ */
+export function addFontWeight(fontWeight: TextStyle['fontWeight']) {
+  return {
+    fontWeight,
+  };
+}
+
+export function addDirection(flexDirection: FlexStyle['flexDirection']) {
+  return {
+    flexDirection,
+  };
+}
+
+export function addJustifyContent(justifyContent: FlexStyle['justifyContent']) {
+  return {
+    justifyContent,
+  };
+}
+
+export function addAlignItems(alignItems: FlexStyle['alignItems']) {
+  return {
+    alignItems,
+  };
+}
+
+export function addFlex(flex: FlexStyle['flex']) {
+  return {
+    flex,
+  };
+}
+
+export function addTextAlign(textAlign: TextStyle['textAlign']) {
+  return {
+    textAlign,
+  };
+}
+
+export function addOpacity(opacity: ViewStyle['opacity']) {
+  return {
+    opacity,
+  };
+}
+
+export function addPosition(position: FlexStyle['position']) {
+  return {
+    position,
+  };
+}
+
+export function addTextTransform(textTransform: TextStyle['textTransform']) {
+  return {
+    textTransform,
   };
 }
