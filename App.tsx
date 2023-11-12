@@ -1,10 +1,12 @@
 import React from 'react';
+import {StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
 import SplashScreen from 'react-native-splash-screen';
 import {HomeStack, LoginStack} from './src/navigation/Stack';
 import {useToken} from './src/store';
 import {getToken} from './src/utils';
+import {colors} from './src/theme';
 
 const App = () => {
   const {token, saveToken} = useToken();
@@ -31,6 +33,7 @@ const App = () => {
 
   return (
     <NavigationContainer>
+      <StatusBar backgroundColor={colors.white[500]} barStyle="dark-content" />
       {!token ? <LoginStack /> : <HomeStack />}
     </NavigationContainer>
   );

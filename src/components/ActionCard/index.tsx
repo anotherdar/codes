@@ -40,13 +40,19 @@ export const ActionCard: React.FC<ActionCardProps> = props => {
         <Text
           style={[
             addFontWeight('bold'),
-            fontSize('default'),
+            fontSize('extra'),
             addColor(colors.gray.default, 'color'),
           ]}>
           {title}
         </Text>
         <View style={[addWidth('65%')]}>
-          <Text style={[addTextAlign('center')]}>{desc}</Text>
+          <Text
+            style={[
+              addTextAlign('center'),
+              addColor(colors.gray[900], 'color'),
+            ]}>
+            {desc}
+          </Text>
         </View>
       </View>
     </Pressable>
