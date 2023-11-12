@@ -1,11 +1,11 @@
 import React from 'react';
 import {View} from 'react-native';
-import {ActionCard, ActionItem, AppHeader} from '../../../components';
+import {ActionCard, AppHeader} from '../../../components';
 import {addPadding, colors} from '../../../theme';
 import {HomeStackTypes} from '../../../navigation';
 import {useNavigator} from '../../../hooks';
 
-export const AddKeyCardHomeScreen = () => {
+export const AddKeyCardCameraScreen = () => {
   const navigator = useNavigator<HomeStackTypes>();
 
   function navigateBack(): void {
@@ -16,18 +16,10 @@ export const AddKeyCardHomeScreen = () => {
     navigator.navigate('settings');
   }
 
-  function gotoForm() {
-    navigator.navigate('addCardForm', {mode: 'new'});
-  }
-
-  function gotoCamera() {
-    navigator.navigate('addCardCamera');
-  }
-
   return (
     <View style={[addPadding('default')]}>
       <AppHeader
-        name="New Card"
+        name="Camera"
         left={{
           icon: 'chevron-left',
           type: 'MaterialCommunity',
@@ -43,22 +35,14 @@ export const AddKeyCardHomeScreen = () => {
       {/* add card */}
 
       <ActionCard
-        title="Take a photo"
-        icon="camera"
+        title="Work in progress"
+        desc="We're still working on this action."
+        icon="face-grin-beam-sweat"
         color={colors.white.default}
-        background={colors.yellow.default}
+        background={colors.green[600]}
         textColor={colors.white.default}
         type="FontAwesome6"
-        onPress={gotoCamera}
-      />
-      <View style={addPadding('normal')} />
-      <ActionItem
-        label="Add manually"
-        icon={{
-          icon: 'file-circle-plus',
-          type: 'FontAwesome6',
-        }}
-        onPress={gotoForm}
+        onPress={() => {}}
       />
     </View>
   );

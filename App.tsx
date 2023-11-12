@@ -1,15 +1,42 @@
-import React from 'react';
-import {StatusBar} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {AppState, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
 import SplashScreen from 'react-native-splash-screen';
 import {HomeStack, LoginStack} from './src/navigation/Stack';
-import {useToken} from './src/store';
-import {getToken} from './src/utils';
+import {useInitialized, useToken} from './src/store';
+import {
+  STORAGE_KEY_STATE_INITIALIZED,
+  getValue,
+  removeToken,
+} from './src/utils';
 import {colors} from './src/theme';
 
 const App = () => {
   const {token, saveToken} = useToken();
+  const {saveInitialized} = useInitialized();
+
+  const appState = useRef(AppState.currentState);
+  const [appStateVisible, setAppStateVisible] = useState(appState.current);
+
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', nextAppState => {
+      if (
+        appState.current.match(/inactive|background/) &&
+        nextAppState === 'active'
+      ) {
+        console.log('App has come to the foreground!');
+        // TODO: try to ask for fingerprint here.
+      }
+
+      appState.current = nextAppState;
+      setAppStateVisible(appState.current);
+    });
+
+    return () => {
+      subscription.remove();
+    };
+  }, []);
 
   React.useEffect(() => {
     /**
@@ -20,16 +47,26 @@ const App = () => {
 
   React.useEffect(() => {
     /**
-     * method to initialize the app and get the auth
-     * TODO: this will change in the future as we integrate the fingerprint login
+     * initialized the app for the first time
      */
     async function initialize() {
-      const {token: localToken} = await getToken();
-      saveToken(!!localToken);
-    }
+      const {initialized} = (await getValue(STORAGE_KEY_STATE_INITIALIZED)) || {
+        initialized: false,
+      };
 
-    initialize();
-  }, [token, saveToken]);
+      saveInitialized(initialized);
+    }
+    if (appStateVisible === 'active') {
+      initialize();
+    }
+  }, [saveInitialized, appStateVisible]);
+
+  useEffect(() => {
+    if (appStateVisible === 'background') {
+      removeToken();
+      saveToken(false);
+    }
+  }, [appStateVisible, saveToken]);
 
   return (
     <NavigationContainer>

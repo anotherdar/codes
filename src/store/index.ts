@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export interface Store {
   token: boolean | undefined;
   saveToken: (token: Store['token']) => void;
+  initialized: boolean | undefined;
+  saveInitialized: (initialized: Store['initialized']) => void;
 }
 
 const useStore = create(
@@ -13,6 +15,8 @@ const useStore = create(
       return {
         token: undefined,
         saveToken: token => set(() => ({token})),
+        initialized: undefined,
+        saveInitialized: initialized => set({initialized}),
       };
     },
     {
@@ -24,3 +28,9 @@ const useStore = create(
 
 export const useToken = () =>
   useStore(({token, saveToken}) => ({token, saveToken}));
+
+export const useInitialized = () =>
+  useStore(({initialized, saveInitialized}) => ({
+    initialized,
+    saveInitialized,
+  }));

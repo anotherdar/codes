@@ -12,7 +12,8 @@ import {
   addJustifyContent,
   addDirection,
 } from '../../theme';
-import {IconBuilder} from '../IconBuilder';
+import {IconBuilderProps} from '../IconBuilder';
+import {renderAction} from '../../utils';
 
 export const Button: React.FC<ButtonProps> = props => {
   const {
@@ -23,34 +24,6 @@ export const Button: React.FC<ButtonProps> = props => {
     left,
     right,
   } = props;
-
-  function renderLeft() {
-    if (typeof left === 'function') {
-      return left();
-    }
-
-    if (typeof left === 'string') {
-      return (
-        <IconBuilder icon={left} size={24} color={color} type="FontAwesome6" />
-      );
-    }
-
-    return null;
-  }
-
-  function rendeRight() {
-    if (typeof right === 'function') {
-      return right();
-    }
-
-    if (typeof right === 'string') {
-      return (
-        <IconBuilder icon={right} size={24} color={color} type="FontAwesome6" />
-      );
-    }
-
-    return null;
-  }
 
   return (
     <Pressable
@@ -69,7 +42,7 @@ export const Button: React.FC<ButtonProps> = props => {
         };
       }}>
       {isLoading && <ActivityIndicator size={24} color={color} />}
-      {!isLoading && renderLeft()}
+      {!isLoading && renderAction(left)}
       <View style={addPadding('sm')} />
       <Text
         style={[
@@ -80,7 +53,7 @@ export const Button: React.FC<ButtonProps> = props => {
         {title}
       </Text>
       <View style={addPadding('sm')} />
-      {rendeRight()}
+      {renderAction(right)}
     </Pressable>
   );
 };
@@ -91,6 +64,6 @@ export interface ButtonProps {
   color?: string;
   isLoading?: boolean;
   onPress: () => void;
-  left?: () => JSX.Element | string;
-  right?: () => JSX.Element | string;
+  left?: (() => JSX.Element) | IconBuilderProps;
+  right?: (() => JSX.Element) | IconBuilderProps;
 }

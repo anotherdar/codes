@@ -13,10 +13,11 @@ import {
   addTextAlign,
   addBorderRadius,
   sizes,
+  addTextTransform,
 } from '../../theme';
 
 export const ActionCard: React.FC<ActionCardProps> = props => {
-  const {title, desc, onPress, ...icon} = props;
+  const {title, desc, onPress, background, textColor, ...icon} = props;
   return (
     <Pressable
       onPress={onPress}
@@ -24,7 +25,7 @@ export const ActionCard: React.FC<ActionCardProps> = props => {
         return {
           ...addJustifyContent('center'),
           ...addAlignItems('center'),
-          ...addColor(colors.white.default),
+          ...addColor(background || colors.white.default),
           ...addPadding('default'),
           ...addBorderRadius('md'),
           opacity: pressed ? 0.8 : 1,
@@ -41,19 +42,22 @@ export const ActionCard: React.FC<ActionCardProps> = props => {
           style={[
             addFontWeight('bold'),
             fontSize('extra'),
-            addColor(colors.gray.default, 'color'),
+            addColor(textColor || colors.gray.default, 'color'),
+            addTextTransform('uppercase'),
           ]}>
           {title}
         </Text>
-        <View style={[addWidth('65%')]}>
-          <Text
-            style={[
-              addTextAlign('center'),
-              addColor(colors.gray[900], 'color'),
-            ]}>
-            {desc}
-          </Text>
-        </View>
+        {desc && (
+          <View style={[addWidth('65%')]}>
+            <Text
+              style={[
+                addTextAlign('center'),
+                addColor(textColor || colors.gray[900], 'color'),
+              ]}>
+              {desc}
+            </Text>
+          </View>
+        )}
       </View>
     </Pressable>
   );
@@ -61,6 +65,8 @@ export const ActionCard: React.FC<ActionCardProps> = props => {
 
 export interface ActionCardProps extends IconBuilderProps {
   title: string;
-  desc: string;
+  desc?: string;
   onPress: () => void;
+  background?: string;
+  textColor?: string;
 }

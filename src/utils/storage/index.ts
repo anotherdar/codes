@@ -1,6 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const STORAGE_KEY = '@KEEP_IT_SECRET_TOKEN';
+export const STORAGE_KEY_STATE = '@KEEP_IT_SECRET_STORAGE';
+export const STORAGE_KEY_STATE_INITIALIZED = `${STORAGE_KEY_STATE}-INITIALIZED`;
+export const STORAGE_KEY_STATE_FINGERPRINT = `${STORAGE_KEY_STATE}-FINGERPRINT`;
+
+const STORAGE_KEYS = [
+  STORAGE_KEY,
+  STORAGE_KEY_STATE,
+  STORAGE_KEY_STATE_INITIALIZED,
+  STORAGE_KEY_STATE_FINGERPRINT,
+];
 
 /**
  * basic util to save the token in the async storage
@@ -56,6 +66,18 @@ export async function removeValue(key: string) {
   try {
     await AsyncStorage.removeItem(key);
   } catch (e) {
+    console.log('ups');
+  }
+}
+
+export async function clearAll() {
+  try {
+    const toClear = STORAGE_KEYS.map(async key => {
+      return await removeValue(key);
+    });
+
+    await Promise.allSettled(toClear);
+  } catch (error) {
     console.log('ups');
   }
 }

@@ -35,6 +35,13 @@ type Sizes =
   | '1xl'
   | '2xl';
 
+type RadiusTypes =
+  | 'borderRadius'
+  | 'borderTopLeftRadius'
+  | 'borderTopRightRadius'
+  | 'borderBottomLeftRadius'
+  | 'borderBottomRightRadius';
+
 /**
  * Sizes for the theme
  */
@@ -236,5 +243,12 @@ export function addPosition(position: FlexStyle['position']) {
 export function addTextTransform(textTransform: TextStyle['textTransform']) {
   return {
     textTransform,
+  };
+}
+
+export function addRadius(type: RadiusTypes, radius: Sizes, size?: number) {
+  console.log({[type]: size || sizes[radius]});
+  return {
+    [type]: size || sizes[radius],
   };
 }

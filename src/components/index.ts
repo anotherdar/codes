@@ -4,3 +4,4 @@ export * from './Button';
 export * from './ActionCard';
 export * from './Header';
 export * from './IconButton';
+export * from './ActionItem';
