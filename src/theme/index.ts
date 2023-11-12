@@ -247,7 +247,6 @@ export function addTextTransform(textTransform: TextStyle['textTransform']) {
 }
 
 export function addRadius(type: RadiusTypes, radius: Sizes, size?: number) {
-  console.log({[type]: size || sizes[radius]});
   return {
     [type]: size || sizes[radius],
   };
