@@ -10,7 +10,7 @@ import {
   colors,
 } from '../../theme';
 import {setToken} from '../../utils';
-import {useInitialized, useToken} from '../../store';
+import {useBiometricsAvailable, useInitialized, useToken} from '../../store';
 
 /**
  * disabled if prod
@@ -20,6 +20,7 @@ const testing = true;
 export const LoginScreen = () => {
   const {saveToken} = useToken();
   const {initialized} = useInitialized();
+  const {biometrics} = useBiometricsAvailable();
 
   function initSession() {
     // save a token to the app;
@@ -54,7 +55,7 @@ export const LoginScreen = () => {
         {(!initialized || testing) && (
           <Button title="Let's go" onPress={initSession} />
         )}
-        {!testing && initialized && <BiometricsButton />}
+        {!testing && initialized && biometrics && <BiometricsButton />}
       </View>
     </View>
   );

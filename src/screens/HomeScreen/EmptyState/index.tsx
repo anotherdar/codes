@@ -4,11 +4,12 @@ import {ActionCard} from '../../../components';
 import {colors, addPadding} from '../../../theme';
 import {useNavigator} from '../../../hooks';
 import {HomeStackTypes} from '../../../navigation';
-import {useInitialized} from '../../../store';
+import {useBiometricsAvailable, useInitialized} from '../../../store';
 
 export const HomeEmpty = () => {
   const navigation = useNavigator<HomeStackTypes>();
   const {initialized} = useInitialized();
+  const {biometrics} = useBiometricsAvailable();
 
   function gotoSettings() {
     navigation.navigate('settings');
@@ -30,7 +31,7 @@ export const HomeEmpty = () => {
       />
       <View style={addPadding('normal')} />
       {/* fingerprint action */}
-      {!initialized && (
+      {!initialized && biometrics && (
         <ActionCard
           title="Keep it secured"
           desc="Add your fingerprint so that no one else can get in."

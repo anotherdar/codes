@@ -7,6 +7,8 @@ export interface Store {
   saveToken: (token: Store['token']) => void;
   initialized: boolean | undefined;
   saveInitialized: (initialized: Store['initialized']) => void;
+  biometrics: boolean;
+  saveBiometrics: (biometrics: Store['biometrics']) => void;
 }
 
 const useStore = create(
@@ -17,6 +19,8 @@ const useStore = create(
         saveToken: token => set(() => ({token})),
         initialized: undefined,
         saveInitialized: initialized => set({initialized}),
+        biometrics: false,
+        saveBiometrics: biometrics => set({biometrics}),
       };
     },
     {
@@ -34,3 +38,6 @@ export const useInitialized = () =>
     initialized,
     saveInitialized,
   }));
+
+export const useBiometricsAvailable = () =>
+  useStore(({biometrics, saveBiometrics}) => ({biometrics, saveBiometrics}));

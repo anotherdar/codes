@@ -251,3 +251,14 @@ export function addRadius(type: RadiusTypes, radius: Sizes, size?: number) {
     [type]: size || sizes[radius],
   };
 }
+
+export function wrapText(
+  flexWrap: FlexStyle['flexWrap'] = 'wrap',
+  flexShrink: FlexStyle['flexShrink'] = 1,
+) {
+  return {
+    ...addFlex(1),
+    flexWrap,
+    flexShrink,
+  };
+}

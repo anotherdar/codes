@@ -4,17 +4,20 @@ import {NavigationContainer} from '@react-navigation/native';
 
 import SplashScreen from 'react-native-splash-screen';
 import {HomeStack, LoginStack} from './src/navigation/Stack';
-import {useInitialized, useToken} from './src/store';
+import {useBiometricsAvailable, useInitialized, useToken} from './src/store';
 import {
   STORAGE_KEY_STATE_INITIALIZED,
   getValue,
   removeToken,
 } from './src/utils';
 import {colors} from './src/theme';
+import {useBiometrics} from './src/hooks';
 
 const App = () => {
   const {token, saveToken} = useToken();
   const {saveInitialized} = useInitialized();
+  const {isSensorAvailable} = useBiometrics();
+  const {saveBiometrics} = useBiometricsAvailable();
 
   const appState = useRef(AppState.currentState);
   const [appStateVisible, setAppStateVisible] = useState(appState.current);
@@ -67,6 +70,18 @@ const App = () => {
       saveToken(false);
     }
   }, [appStateVisible, saveToken]);
+
+  useEffect(() => {
+    async function validateBiometrics() {
+      const available = await isSensorAvailable();
+      saveBiometrics(available);
+    }
+
+    if (appStateVisible === 'active') {
+      validateBiometrics();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [appStateVisible]);
 
   return (
     <NavigationContainer>
