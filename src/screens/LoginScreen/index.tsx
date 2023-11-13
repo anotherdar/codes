@@ -12,11 +12,6 @@ import {
 import {setToken} from '../../utils';
 import {useBiometricsAvailable, useInitialized, useToken} from '../../store';
 
-/**
- * disabled if prod
- */
-const testing = true;
-
 export const LoginScreen = () => {
   const {saveToken} = useToken();
   const {initialized} = useInitialized();
@@ -52,10 +47,12 @@ export const LoginScreen = () => {
         <Logo />
       </View>
       <View style={[addDirection('row'), addPadding('xl')]}>
-        {(!initialized || testing) && (
+        {(!initialized || !biometrics) && (
           <Button title="Let's go" onPress={initSession} />
         )}
-        {!testing && initialized && biometrics && <BiometricsButton />}
+        {/* <Button title="Let's go" onPress={initSession} /> */}
+
+        {initialized && biometrics && <BiometricsButton />}
       </View>
     </View>
   );

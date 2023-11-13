@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {AppState, StatusBar} from 'react-native';
+import {AppState, LogBox, StatusBar} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 
 import SplashScreen from 'react-native-splash-screen';
@@ -82,6 +82,10 @@ const App = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [appStateVisible]);
+
+  useEffect(() => {
+    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+  }, []);
 
   return (
     <NavigationContainer>

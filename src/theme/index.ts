@@ -42,6 +42,17 @@ type RadiusTypes =
   | 'borderBottomLeftRadius'
   | 'borderBottomRightRadius';
 
+type MarginTypes =
+  | 'margin'
+  | 'marginBottom'
+  | 'marginEnd'
+  | 'marginHorizontal'
+  | 'marginLeft'
+  | 'marginRight'
+  | 'marginStart'
+  | 'marginTop'
+  | 'marginVertical';
+
 /**
  * Sizes for the theme
  */
@@ -260,5 +271,15 @@ export function wrapText(
     ...addFlex(1),
     flexWrap,
     flexShrink,
+  };
+}
+
+export function addMargin(type: MarginTypes, margin: Sizes, size?: number) {
+  console.log({
+    [type]: margin || size,
+  });
+
+  return {
+    [type]: sizes[margin] || size,
   };
 }
