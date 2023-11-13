@@ -5,13 +5,19 @@ import {addPadding, colors} from '../../theme';
 import {HomeStackTypes} from '../../navigation';
 import {useBiometrics, useNavigator} from '../../hooks';
 import {STORAGE_KEY_STATE_INITIALIZED, clearAll, setValue} from '../../utils';
-import {useBiometricsAvailable, useInitialized, useToken} from '../../store';
+import {
+  useBiometricsAvailable,
+  useCards,
+  useInitialized,
+  useToken,
+} from '../../store';
 
 export const SettingsScreen = () => {
   const navigate = useNavigator<HomeStackTypes>();
   const {saveToken} = useToken();
   const {saveInitialized, initialized} = useInitialized();
   const {askForBiometrics, errorMessage} = useBiometrics();
+  const {saveCards} = useCards();
   const {biometrics} = useBiometricsAvailable();
 
   function navigateBack() {
@@ -22,6 +28,7 @@ export const SettingsScreen = () => {
     await clearAll();
     saveInitialized(false);
     saveToken(undefined);
+    saveCards([]);
   }
 
   function onInitialize(status: boolean) {

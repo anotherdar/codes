@@ -10,7 +10,7 @@ import {
 } from '../../theme/index';
 
 export const IconButton: React.FC<IconButtonProps> = props => {
-  const {onPress, ...icon} = props;
+  const {onPress, hideBackground, ...icon} = props;
   return (
     <Pressable
       onPress={onPress}
@@ -21,18 +21,20 @@ export const IconButton: React.FC<IconButtonProps> = props => {
           ...addAlignItems('center'),
         };
       }}>
-      <View
-        style={[
-          /**
-           * size * 1.5 to increase the size just a bit
-           * in order to create a padding effect.
-           */
-          createCircle((icon.size || sizes.default) * 1.5),
-          addColor(icon.color || colors.gray.default, 'backgroundColor'),
-          addOpacity(0.2),
-          addPosition('absolute'),
-        ]}
-      />
+      {!hideBackground && (
+        <View
+          style={[
+            /**
+             * size * 1.5 to increase the size just a bit
+             * in order to create a padding effect.
+             */
+            createCircle((icon.size || sizes.default) * 1.5),
+            addColor(icon.color || colors.gray.default, 'backgroundColor'),
+            addOpacity(0.2),
+            addPosition('absolute'),
+          ]}
+        />
+      )}
       <IconBuilder
         {...icon}
         size={icon.size || sizes.default}
@@ -44,4 +46,5 @@ export const IconButton: React.FC<IconButtonProps> = props => {
 
 export interface IconButtonProps extends IconBuilderProps {
   onPress: () => void;
+  hideBackground?: boolean;
 }

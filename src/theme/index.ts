@@ -66,6 +66,7 @@ export const sizes = {
   xl: 32,
   '1xl': 44,
   '2xl': 48,
+  '3xl': 54,
 };
 
 /**
@@ -275,10 +276,6 @@ export function wrapText(
 }
 
 export function addMargin(type: MarginTypes, margin: Sizes, size?: number) {
-  console.log({
-    [type]: margin || size,
-  });
-
   return {
     [type]: sizes[margin] || size,
   };

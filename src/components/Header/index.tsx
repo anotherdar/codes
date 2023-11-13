@@ -17,7 +17,7 @@ import {IconBuilderProps} from '../IconBuilder';
 import {renderAction} from '../../utils';
 
 export const AppHeader: React.FC<AppHeaderProps> = props => {
-  const {name, left, leftAction, right, rightAction} = props;
+  const {name, left, leftAction, right, rightAction, color} = props;
 
   return (
     <View
@@ -37,7 +37,7 @@ export const AppHeader: React.FC<AppHeaderProps> = props => {
             style={[
               addFontWeight('bold'),
               fontSize('extra'),
-              addColor(colors.gray.default, 'color'),
+              addColor(color || colors.gray.default, 'color'),
               addTextAlign('center'),
               addTextTransform('uppercase'),
             ]}>
@@ -59,4 +59,5 @@ export interface AppHeaderProps {
   leftAction?: () => void;
   right?: (() => JSX.Element) | IconBuilderProps;
   rightAction?: () => void;
+  color?: string;
 }

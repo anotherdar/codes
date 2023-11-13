@@ -23,11 +23,13 @@ export const Button: React.FC<ButtonProps> = props => {
     isLoading,
     left,
     right,
+    disabled,
   } = props;
 
   return (
     <Pressable
       onPress={props.onPress}
+      disabled={disabled}
       style={({pressed}) => {
         return {
           ...addWidth('100%'),
@@ -38,7 +40,7 @@ export const Button: React.FC<ButtonProps> = props => {
           ...addDirection('row'),
           ...addJustifyContent('center'),
           ...addAlignItems('center'),
-          opacity: pressed ? 0.8 : 1,
+          opacity: disabled ? 0.5 : pressed ? 0.8 : 1,
         };
       }}>
       {isLoading && <ActivityIndicator size={24} color={color} />}
@@ -66,4 +68,5 @@ export interface ButtonProps {
   onPress: () => void;
   left?: (() => JSX.Element) | IconBuilderProps;
   right?: (() => JSX.Element) | IconBuilderProps;
+  disabled?: boolean;
 }

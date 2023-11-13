@@ -9,6 +9,8 @@ export interface Store {
   saveInitialized: (initialized: Store['initialized']) => void;
   biometrics: boolean;
   saveBiometrics: (biometrics: Store['biometrics']) => void;
+  cards: KeyCard[];
+  saveCards: (cards: Store['cards']) => void;
 }
 
 const useStore = create(
@@ -21,6 +23,8 @@ const useStore = create(
         saveInitialized: initialized => set({initialized}),
         biometrics: false,
         saveBiometrics: biometrics => set({biometrics}),
+        cards: [],
+        saveCards: cards => set({cards}),
       };
     },
     {
@@ -41,3 +45,6 @@ export const useInitialized = () =>
 
 export const useBiometricsAvailable = () =>
   useStore(({biometrics, saveBiometrics}) => ({biometrics, saveBiometrics}));
+
+export const useCards = () =>
+  useStore(({cards, saveCards}) => ({saveCards, cards}));

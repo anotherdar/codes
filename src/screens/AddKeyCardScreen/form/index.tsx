@@ -24,6 +24,7 @@ import {
 import {HomeStackTypes} from '../../../navigation';
 import {useNavigator} from '../../../hooks';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import {STORAGE_KEY_STATE_CARDS, getValue, setValue} from '../../../utils';
 
 export const AddKeyCardFormScreen = () => {
   const navigator = useNavigator<HomeStackTypes>();
@@ -69,9 +70,16 @@ export const AddKeyCardFormScreen = () => {
     });
   };
 
-  const handleSubmit = () => {
-    // Implement your form submission logic here
-    console.log(formData);
+  const handleSubmit = async () => {
+    const {cards} = ((await getValue(STORAGE_KEY_STATE_CARDS)) || {
+      cards: [],
+    }) as {cards: KeyCard[]};
+
+    const data = [...cards.filter(card => card.id !== formData.id), formData];
+
+    setValue({cards: data}, STORAGE_KEY_STATE_CARDS);
+
+    navigator.navigate('home');
   };
 
   function navigateBack(): void {
@@ -80,6 +88,14 @@ export const AddKeyCardFormScreen = () => {
 
   function gotoSettings() {
     navigator.navigate('settings');
+  }
+
+  function isValid() {
+    return !(
+      formData.id &&
+      formData.name &&
+      !!formData.codes.every(code => code && code.length === 4)
+    );
   }
 
   return (
@@ -122,6 +138,7 @@ export const AddKeyCardFormScreen = () => {
                   addColor(colors.white.default),
                   addBorderRadius('sm'),
                   addFontWeight('500'),
+                  addColor(colors.gray.default, 'color'),
                 ]}
                 placeholderTextColor={colors.gray.default}
               />
@@ -135,6 +152,7 @@ export const AddKeyCardFormScreen = () => {
                   addColor(colors.white.default),
                   addBorderRadius('sm'),
                   addFontWeight('500'),
+                  addColor(colors.gray.default, 'color'),
                 ]}
                 placeholderTextColor={colors.gray.default}
               />
@@ -145,7 +163,7 @@ export const AddKeyCardFormScreen = () => {
                   addFontWeight('bold'),
                   addTextTransform('uppercase'),
                 ]}>
-                Codes
+                Codes ({formData.codes.length})
               </Text>
               <View style={[addPadding('sm')]} />
               {/* Codes */}
@@ -161,16 +179,27 @@ export const AddKeyCardFormScreen = () => {
                       addAlignItems('center'),
                       addMargin('marginBottom', 'extra'),
                     ]}>
+                    <Text
+                      style={[
+                        addColor(colors.gray.default, 'color'),
+                        addFontWeight('bold'),
+                        addTextTransform('uppercase'),
+                      ]}>
+                      {index + 1}.
+                    </Text>
+                    <View style={[addPadding('xs')]} />
                     <TextInput
                       style={[
                         addFlex(1),
                         addPadding('md'),
                         addColor(colors.white.default),
+                        addColor(colors.gray.default, 'color'),
                         addBorderRadius('sm'),
                         addFontWeight('500'),
                       ]}
                       placeholderTextColor={colors.gray[700]}
                       placeholder="Code"
+                      keyboardType="number-pad"
                       value={item}
                       maxLength={4}
                       onChangeText={value => handleCodeChange(index, value)}
@@ -203,7 +232,7 @@ export const AddKeyCardFormScreen = () => {
           </View>
         </KeyboardAwareScrollView>
         <View style={[addPadding('default')]}>
-          <Button title="CREATE" onPress={handleSubmit} />
+          <Button disabled={isValid()} title="CREATE" onPress={handleSubmit} />
         </View>
       </>
     </TouchableWithoutFeedback>
