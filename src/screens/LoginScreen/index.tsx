@@ -1,6 +1,6 @@
 import React from 'react';
 import {StatusBar, View} from 'react-native';
-import {Button, IconButton, Logo} from '../../components';
+import {Button, Logo, BiometricsButton} from '../../components';
 import {
   addAlignItems,
   addDirection,
@@ -8,10 +8,14 @@ import {
   addJustifyContent,
   addPadding,
   colors,
-  sizes,
 } from '../../theme';
 import {setToken} from '../../utils';
 import {useInitialized, useToken} from '../../store';
+
+/**
+ * disabled if prod
+ */
+const testing = true;
 
 export const LoginScreen = () => {
   const {saveToken} = useToken();
@@ -19,15 +23,6 @@ export const LoginScreen = () => {
 
   function initSession() {
     // save a token to the app;
-    setToken({
-      token: Date.now(),
-    });
-
-    saveToken(true);
-  }
-
-  function onInitialized() {
-    // TODO: ask for finger print here
     setToken({
       token: Date.now(),
     });
@@ -56,16 +51,10 @@ export const LoginScreen = () => {
         <Logo />
       </View>
       <View style={[addDirection('row'), addPadding('xl')]}>
-        {!initialized && <Button title="Let's go" onPress={initSession} />}
-        {initialized && (
-          <IconButton
-            icon="fingerprint"
-            type="MaterialCommunity"
-            size={sizes['2xl']}
-            color={colors.yellow.default}
-            onPress={onInitialized}
-          />
+        {(!initialized || testing) && (
+          <Button title="Let's go" onPress={initSession} />
         )}
+        {!testing && initialized && <BiometricsButton />}
       </View>
     </View>
   );

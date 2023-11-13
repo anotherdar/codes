@@ -42,7 +42,7 @@ export const AddKeyCardCameraScreen = () => {
         background={colors.green[600]}
         textColor={colors.white.default}
         type="FontAwesome6"
-        onPress={() => {}}
+        onPress={navigateBack}
       />
     </View>
   );

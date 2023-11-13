@@ -7,6 +7,7 @@ import {
   AddKeyCardHomeScreen,
   AddKeyCardFormScreen,
   AddKeyCardCameraScreen,
+  SandboxScreen,
 } from '../../../screens';
 
 export type HomeStackTypes = {
@@ -15,6 +16,7 @@ export type HomeStackTypes = {
   addCardHome: undefined;
   addCardForm: {mode: 'edit' | 'new'};
   addCardCamera: undefined;
+  sandbox: undefined;
 };
 
 const Stack = createStackNavigator<HomeStackTypes>();
@@ -33,6 +35,7 @@ export const HomeStack = () => {
       <Stack.Screen name="addCardHome" component={AddKeyCardHomeScreen} />
       <Stack.Screen name="addCardForm" component={AddKeyCardFormScreen} />
       <Stack.Screen name="addCardCamera" component={AddKeyCardCameraScreen} />
+      <Stack.Screen name="sandbox" component={SandboxScreen} />
     </Stack.Navigator>
   );
 };
