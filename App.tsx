@@ -84,7 +84,9 @@ const App = () => {
   }, [appStateVisible]);
 
   useEffect(() => {
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    LogBox.ignoreLogs([
+      'VirtualizedLists should never be nested inside plain ScrollViews',
+    ]);
   }, []);
 
   return (

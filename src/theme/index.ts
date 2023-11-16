@@ -9,7 +9,7 @@ import {
 /**
  * Color options that the theme support
  */
-type Color = 'backgroundColor' | 'color';
+type Color = 'backgroundColor' | 'color' | 'borderColor';
 /**
  * Padding options that the theme support
  */
@@ -279,4 +279,12 @@ export function addMargin(type: MarginTypes, margin: Sizes, size?: number) {
   return {
     [type]: sizes[margin] || size,
   };
+}
+
+export function addBorder(size: number) {
+  return StyleSheet.create({
+    sm: {
+      borderWidth: size,
+    },
+  }).sm;
 }
