@@ -7,6 +7,7 @@ import {
   Keyboard,
   Pressable,
   Text,
+  ToastAndroid,
 } from 'react-native';
 import {
   addAlignItems,
@@ -75,6 +76,8 @@ export const SearchCodeScreen = () => {
     Clipboard.setString(memoList?.code.toString());
 
     Keyboard.dismiss();
+
+    ToastAndroid.show('Code copied', ToastAndroid.LONG);
   }
 
   return (
