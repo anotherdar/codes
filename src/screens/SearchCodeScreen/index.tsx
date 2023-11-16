@@ -77,7 +77,7 @@ export const SearchCodeScreen = () => {
 
     Keyboard.dismiss();
 
-    ToastAndroid.show('Code copied', ToastAndroid.LONG);
+    ToastAndroid.show('Code copied', ToastAndroid.SHORT);
   }
 
   return (
