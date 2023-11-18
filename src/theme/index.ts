@@ -13,7 +13,7 @@ type Color = 'backgroundColor' | 'color' | 'borderColor';
 /**
  * Padding options that the theme support
  */
-type Padding =
+export type Padding =
   | 'padding'
   | 'paddingHorizontal'
   | 'paddingBottom'
@@ -24,7 +24,7 @@ type Padding =
 /**
  * Sizes options that the theme support
  */
-type Sizes =
+export type Sizes =
   | 'xs'
   | 'sm'
   | 'md'
@@ -35,14 +35,14 @@ type Sizes =
   | '1xl'
   | '2xl';
 
-type RadiusTypes =
+export type RadiusTypes =
   | 'borderRadius'
   | 'borderTopLeftRadius'
   | 'borderTopRightRadius'
   | 'borderBottomLeftRadius'
   | 'borderBottomRightRadius';
 
-type MarginTypes =
+export type MarginTypes =
   | 'margin'
   | 'marginBottom'
   | 'marginEnd'

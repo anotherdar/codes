@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform, View} from 'react-native';
+import {View} from 'react-native';
 
 import {AppHeader} from '../../components';
 import {addFlex, addPadding} from '../../theme';
@@ -36,8 +36,6 @@ export const HomeScreen = () => {
   function gotoSettings() {
     navigation.navigate('settings');
   }
-
-  console.log(`card > ${Platform.Version}`, cards, isEmpty(cards));
 
   return (
     <View style={[addPadding('default'), addFlex(1)]}>

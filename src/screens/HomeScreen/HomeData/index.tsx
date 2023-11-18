@@ -17,7 +17,7 @@ import {
 } from '../../../theme';
 import {FlatList} from 'react-native-gesture-handler';
 import {IconBuilder} from '../../../components/IconBuilder/index';
-import {IconButton} from '../../../components';
+import {IconButton, Separator} from '../../../components';
 
 export const HomeData = () => {
   const navigation = useNavigator<HomeStackTypes>();
@@ -38,6 +38,8 @@ export const HomeData = () => {
         <FlatList
           data={cards}
           keyExtractor={item => `${item.id.toString()}-${Date.now()}`}
+          // eslint-disable-next-line react/no-unstable-nested-components
+          ItemSeparatorComponent={() => <Separator />}
           renderItem={({item}) => {
             return (
               <Pressable

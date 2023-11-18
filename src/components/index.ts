@@ -7,3 +7,4 @@ export * from './IconButton';
 export * from './ActionItem';
 export * from './Biometric';
 export * from './Alert';
+export * from './Separator';
