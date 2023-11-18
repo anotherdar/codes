@@ -138,7 +138,7 @@ export const SearchCodeScreen = () => {
               addColor(colors.white.default, 'color'),
               fontSize('normal'),
             ]}
-            placeholder="SEARCH BY CODE"
+            placeholder="SEARCH BY CARD CODE: e.i: 22"
             placeholderTextColor={colors.gray[700]}
             keyboardType="numeric"
             value={query}
