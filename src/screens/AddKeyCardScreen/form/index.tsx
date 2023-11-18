@@ -22,11 +22,12 @@ import {
   colors,
 } from '../../../theme';
 import {HomeStackTypes} from '../../../navigation';
-import {useNavigator} from '../../../hooks';
+import {useIgnore, useNavigator} from '../../../hooks';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {STORAGE_KEY_STATE_CARDS, getValue, setValue} from '../../../utils';
 
 export const AddKeyCardFormScreen = () => {
+  useIgnore();
   const navigator = useNavigator<HomeStackTypes>();
   const [formData, setFormData] = useState<FormData>({
     name: '',
