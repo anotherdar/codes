@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unstable-nested-components */
 import React, {useMemo, useRef, useState} from 'react';
 import {
   StatusBar,
@@ -8,6 +9,7 @@ import {
   Pressable,
   Text,
   ToastAndroid,
+  FlatList,
 } from 'react-native';
 import {
   addAlignItems,
@@ -19,11 +21,12 @@ import {
   addFontWeight,
   addJustifyContent,
   addPadding,
+  addTextTransform,
   colors,
   fontSize,
   sizes,
 } from '../../theme';
-import {AppHeader, Button, IconBuilder} from '../../components';
+import {AppHeader, BottomSheet, Button, IconBuilder} from '../../components';
 import {useNavigator} from '../../hooks';
 import {HomeStackTypes} from '../../navigation';
 import {RouteProp, useRoute} from '@react-navigation/native';
@@ -39,9 +42,10 @@ export const SearchCodeScreen = () => {
   const navigator = useNavigator<HomeStackTypes>();
   const {
     params: {
-      card: {name, codes},
+      card: {name, codes, id},
     },
   } = useRoute<RouteProp<Search>>();
+  const [isDismissed, setIsDismissed] = useState<boolean>(false);
 
   const inputRefs = useRef<TextInput | null>(null);
   const [query, setQuery] = useState('');
@@ -62,7 +66,9 @@ export const SearchCodeScreen = () => {
     navigator.goBack(['home']);
   }
 
-  function openMore() {}
+  function openMore() {
+    setIsDismissed(true);
+  }
 
   function focusInput() {
     inputRefs.current?.focus();
@@ -78,6 +84,10 @@ export const SearchCodeScreen = () => {
     Keyboard.dismiss();
 
     ToastAndroid.show('Code copied', ToastAndroid.SHORT);
+  }
+
+  function handleMore() {
+    setIsDismissed(prev => !prev);
   }
 
   return (
@@ -188,6 +198,45 @@ export const SearchCodeScreen = () => {
         <View style={[addPadding('default')]}>
           <Button disabled={!memoList?.code} title="Copy" onPress={onCopy} />
         </View>
+
+        <BottomSheet
+          title="Options"
+          onDismiss={handleMore}
+          visible={isDismissed}>
+          <FlatList
+            data={[]}
+            ListHeaderComponent={() => {
+              return (
+                <View
+                  style={[
+                    addBorder(1, 'borderBottom'),
+                    addPadding('sm', 'paddingBottom'),
+                  ]}>
+                  <Text
+                    style={[
+                      addFontWeight('bold'),
+                      addColor(colors.gray.default, 'color'),
+                      addTextTransform('uppercase'),
+                    ]}>
+                    Card info
+                  </Text>
+                  <Text
+                    style={[
+                      addFontWeight('600'),
+                      addColor(colors.gray[700], 'color'),
+                    ]}>
+                    {id}
+                  </Text>
+                </View>
+              );
+            }}
+            renderItem={() => (
+              <View>
+                <Text>Render options</Text>
+              </View>
+            )}
+          />
+        </BottomSheet>
       </View>
     </TouchableWithoutFeedback>
   );

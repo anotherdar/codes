@@ -53,6 +53,12 @@ export type MarginTypes =
   | 'marginTop'
   | 'marginVertical';
 
+export type BorderWidth =
+  | 'border'
+  | 'borderTop'
+  | 'borderBottom'
+  | 'borderLeft'
+  | 'borderRight';
 /**
  * Sizes for the theme
  */
@@ -281,10 +287,20 @@ export function addMargin(type: MarginTypes, margin: Sizes, size?: number) {
   };
 }
 
-export function addBorder(size: number) {
+export function addBorder(
+  size: number,
+  type: BorderWidth = 'border',
+  color: string = colors.gray[700],
+) {
+  const borderType = `${type}Width`;
+  const borderColor = `${type}Color`;
+
+  console.log(borderType);
+
   return StyleSheet.create({
     sm: {
-      borderWidth: size,
+      [borderType]: size,
+      [borderColor]: color,
     },
   }).sm;
 }
