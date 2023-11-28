@@ -18,7 +18,8 @@ export const HomeEmpty = () => {
   }
 
   function gotoAddCard() {
-    navigation.navigate('addCardHome');
+    // navigation.navigate('addCardHome');
+    navigation.navigate('addCardForm', {mode: 'new'});
   }
 
   if (!isEmpty(cards) && initialized) {

@@ -23,7 +23,7 @@ export const HomeData = () => {
   const navigation = useNavigator<HomeStackTypes>();
   const {cards} = useCards();
 
-  const gotoAddCard = () => navigation.navigate('addCardHome');
+  const gotoAddCard = () => navigation.navigate('addCardForm', {mode: 'new'});
   const gotoKeyCard = (card: KeyCard) => {
     return () => {
       navigation.navigate('search', {

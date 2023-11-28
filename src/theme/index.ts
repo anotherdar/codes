@@ -295,8 +295,6 @@ export function addBorder(
   const borderType = `${type}Width`;
   const borderColor = `${type}Color`;
 
-  console.log(borderType);
-
   return StyleSheet.create({
     sm: {
       [borderType]: size,

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
-import {ActionCard, ActionItem, AppHeader} from '../../../components';
-import {addPadding, colors} from '../../../theme';
+import {ActionItem, AppHeader} from '../../../components';
+import {addPadding} from '../../../theme';
 import {HomeStackTypes} from '../../../navigation';
 import {useNavigator} from '../../../hooks';
 
@@ -20,9 +20,9 @@ export const AddKeyCardHomeScreen = () => {
     navigator.navigate('addCardForm', {mode: 'new'});
   }
 
-  function gotoCamera() {
-    navigator.navigate('addCardCamera');
-  }
+  // function gotoCamera() {
+  //   navigator.navigate('addCardCamera');
+  // }
 
   return (
     <View style={[addPadding('default')]}>
@@ -42,7 +42,7 @@ export const AddKeyCardHomeScreen = () => {
       <View style={addPadding('normal')} />
       {/* add card */}
 
-      <ActionCard
+      {/* <ActionCard
         title="Take a photo"
         icon="camera"
         color={colors.white.default}
@@ -50,7 +50,7 @@ export const AddKeyCardHomeScreen = () => {
         textColor={colors.white.default}
         type="FontAwesome6"
         onPress={gotoCamera}
-      />
+      /> */}
       <View style={addPadding('normal')} />
       <ActionItem
         label="Add manually"
